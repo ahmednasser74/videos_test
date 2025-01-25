@@ -1,0 +1,17 @@
+bricks:
+  api_model:
+    path: templates_mason/api_model
+  base_screen:
+    path: templates_mason/base_screen
+  clean_arch_feature:
+    path: templates_mason/clean_arch_feature
+  new_feature:
+    path: templates_mason/new_feature
+  normal_feature:
+    path: templates_mason/normal_feature
+  request:
+    path: templates_mason/request
+  request_model:
+    path: templates_mason/request_model
+  response_model:
+    path: templates_mason/response_model
