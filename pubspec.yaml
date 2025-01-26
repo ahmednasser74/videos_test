@@ -32,6 +32,9 @@ dependencies:
       ref: main
   an_core_network:
     path: packages/an_core_network
+    # git:
+    #   url: https://github.com/ahmednasser74/an_core_network.git
+    #   ref: main
   an_core_ui:
     git:
       url: https://github.com/ahmednasser74/an_core_ui.git
