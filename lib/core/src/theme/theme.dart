@@ -73,7 +73,7 @@ class AppThemes with AppThemeComponents {
       unselectedWidgetColor: Colors.black,
       inputDecorationTheme: inputDecorationTheme,
       appBarTheme: AppBarTheme(
-        backgroundColor: AppColors.white,
+        backgroundColor: AppColors.blackColor,
         elevation: 0,
         centerTitle: true,
         titleTextStyle: TextStyle(

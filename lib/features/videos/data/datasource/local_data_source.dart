@@ -1,5 +1,6 @@
 import 'package:an_core_network/an_core_network.dart';
 import 'package:injectable/injectable.dart';
+import 'package:videos_test/core/index.dart';
 
 import '../models/index.dart';
 
@@ -14,11 +15,31 @@ class VideosLocalDataSourceImpl implements VideosLocalDataSource {
 
   @override
   Future<AppResponseListResult<VideoItemResponseModel>> getVideos() async {
-    // final response = await network.send(
-    //   request: GetVideosRequest(),
-    //   responseObject: VideoItemResponseModel(),
-    //   responseType: ResponseType.list,
-    // );
-    return 'response' as AppResponseListResult<VideoItemResponseModel>;
+    final db = di<VideosLocalStorageService>();
+    final videos = await db.getVideos();
+    if (videos.isNotEmpty) {
+      final videosToJson = videos.map((e) => e.toJson()).toList();
+      final x = AppResponseListResult<VideoItemResponseModel>.fromJson(
+        {
+          'code': 200,
+          'data': {
+            'data': videosToJson,
+            'meta_data': {'total': 0}
+          },
+        },
+        VideoItemResponseModel(),
+      );
+      return x;
+    }
+    return AppResponseListResult<VideoItemResponseModel>.fromJson(
+      {
+        'code': 200,
+        'data': {
+          'data': [],
+          'meta_data': {'total': 0}
+        },
+      },
+      VideoItemResponseModel(),
+    );
   }
 }

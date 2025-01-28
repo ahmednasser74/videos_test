@@ -32,9 +32,6 @@ dependencies:
       ref: main
   an_core_network:
     path: packages/an_core_network
-    # git:
-    #   url: https://github.com/ahmednasser74/an_core_network.git
-    #   ref: main
   an_core_ui:
     git:
       url: https://github.com/ahmednasser74/an_core_ui.git
@@ -45,12 +42,17 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_dotenv: ^5.2.1
+  flutter_offline: ^4.0.0
   flutter_screenutil: ^5.9.3
   get_it: ^8.0.2
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
   injectable: ^2.1.0
   internet_connection_checker: ^3.0.1
   json_annotation: ^4.8.1
   json_serializable: ^6.7.1
+  permission_handler: ^11.3.1
+  video_compress: ^3.1.3
   video_player: ^2.9.2
 
 dev_dependencies:
@@ -61,6 +63,7 @@ dev_dependencies:
 
   flutter_test:
     sdk: flutter
+  hive_generator: ^2.0.1
   injectable_generator: null
 
 flutter_gen:

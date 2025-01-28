@@ -25,6 +25,7 @@ import '../../features/videos/domain/usecase/get_videos_usecase.dart' as _i339;
 import '../../features/videos/domain/usecase/index.dart' as _i934;
 import '../../features/videos/presentation/cubit/get_videos_cubit.dart'
     as _i384;
+import '../services/videos_local_storage_service.dart' as _i362;
 import 'register_module.dart' as _i291;
 
 // initializes the registration of main-scope dependencies inside of GetIt
@@ -39,6 +40,8 @@ _i174.GetIt $initGetIt(
     environmentFilter,
   );
   final registerModule = _$RegisterModule();
+  gh.factory<_i362.VideosLocalStorageService>(
+      () => _i362.VideosLocalStorageService());
   gh.singleton<_i409.GlobalKey<_i409.NavigatorState>>(
       () => registerModule.navigatorKey);
   gh.factory<_i180.VideosRemoteDataSource>(

@@ -15,6 +15,9 @@ A new Flutter project.
 > - **Response Parsing**: Simplifies parsing of JSON responses.
 > - **Logging**: Provides detailed logging for network requests and responses.
 
+> **Important Note:**
+> 
+> This project is intended as a task and not a real project. Therefore, the `.env` file has not been added to `.gitignore` to simplify installation and running of the application.
 ## Running the Application
 
 To run the application on Android or iOS, follow these steps:

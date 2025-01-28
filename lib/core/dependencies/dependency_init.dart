@@ -23,3 +23,16 @@ Future<GetIt> configureDependencies() async {
 
   return $initGetIt(di);
 }
+// void _core() {
+//   di.registerLazySingleton<ReceivePort>(() => ReceivePort());
+
+//   di.registerLazySingleton<StreamController>(
+//     () {
+//       final stream = StreamController<dynamic>.broadcast();
+//       di<ReceivePort>().listen((message) {
+//         di<StreamController>().add(message);
+//       });
+//       return stream;
+//     },
+//   );
+// }

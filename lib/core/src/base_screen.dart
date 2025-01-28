@@ -1,7 +1,6 @@
+import 'package:an_core_ui/an_core_ui.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import '../index.dart';
+import 'package:flutter_offline/flutter_offline.dart';
 
 abstract class BaseStatefulWidget extends StatefulWidget {
   const BaseStatefulWidget({super.key});
@@ -44,12 +43,40 @@ abstract class BaseState<T extends BaseStatefulWidget> extends State<T> {
       );
 
   Widget _buildBody(BuildContext context) {
-    return GestureDetector(
-      onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
-      child: Column(
-        children: <Widget>[
-          Expanded(child: getBody(context)),
-          SizedBox(height: MediaQuery.of(context).padding.bottom),
+    return OfflineBuilder(
+      connectivityBuilder: (
+        BuildContext context,
+        List<ConnectivityResult> connectivity,
+        Widget child,
+      ) {
+        final bool isConnected = !connectivity.contains(ConnectivityResult.none);
+        return GestureDetector(
+          onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+          child: Column(
+            children: [
+              if (!isConnected) ...[
+                Padding(padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top)),
+                buildNoInternetConnectionWidget(context),
+              ],
+              Expanded(child: getBody(context)),
+            ],
+          ),
+        );
+      },
+      child: Container(),
+    );
+  }
+
+  Widget buildNoInternetConnectionWidget(BuildContext context) {
+    return Container(
+      color: Colors.red,
+      padding: const EdgeInsets.all(8),
+      child: const Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(Icons.error, color: Colors.white),
+          SizedBox(width: 8),
+          AppText('No internet connection', color: Colors.white, size: 12),
         ],
       ),
     );
@@ -97,7 +124,6 @@ abstract class BaseState<T extends BaseStatefulWidget> extends State<T> {
   GlobalKey<ScaffoldState> get getScreenKey => _scaffoldKey;
 
   void showSnackBar({
-    required BuildContext context,
     required String title,
     String? message,
     String? actionLabel,

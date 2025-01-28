@@ -6,6 +6,7 @@ import 'package:injectable/injectable.dart';
 import 'package:videos_test/features/videos/data/models/request/get_videos_request_model.dart';
 import 'package:videos_test/features/videos/data/models/response/video_item_response_model.dart';
 
+import '../../../../core/index.dart';
 import '../../domain/repositories/index.dart';
 import '../datasource/index.dart';
 
@@ -21,14 +22,20 @@ class VideosRepositoryImp implements VideosRepository {
       final isConnected = await InternetConnectionChecker.instance.hasConnection;
       if (isConnected) {
         final videos = await _ordersRemoteDataSource.getVideos(model: model);
+        _saveVideos(videos.results ?? []);
         return Right(videos);
       } else {
-        //todo check if cache not empty
         final videos = await _ordersLocalDataSource.getVideos();
         return Right(videos);
       }
     } on Exception catch (error) {
       return Left(FailureHandler(error).getExceptionFailure());
+    }
+  }
+
+  void _saveVideos(List<VideoItemResponseModel> videos) {
+    if (videos.isNotEmpty) {
+      di<VideosLocalStorageService>().saveVideos(videos);
     }
   }
 }

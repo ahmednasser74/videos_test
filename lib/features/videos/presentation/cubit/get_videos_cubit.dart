@@ -26,6 +26,10 @@ class GetVideosCubit extends Cubit<FlowState> {
       },
       (r) {
         if (r.isSuccess ?? false) {
+          if (r.results?.isEmpty ?? true) {
+            safeEmit(const EmptyState());
+            return;
+          }
           totalPages = r.totalPages;
           videos.addAll(r.results as List<VideoItemResponseModel>);
           safeEmit(SuccessState(type: SuccessRendererType.none, data: r.results));
@@ -39,6 +43,11 @@ class GetVideosCubit extends Cubit<FlowState> {
   Future<void> refreshVideos() async {
     page = 1;
     videos.clear();
+    await getVideos();
+  }
+
+  Future<void> getNextPage() async {
+    page++;
     await getVideos();
   }
 }
